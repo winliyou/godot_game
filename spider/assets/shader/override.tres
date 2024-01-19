@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cup6fnjly83tt"]
+
+[ext_resource type="Shader" path="res://assets/shader/override.gdshader" id="1_cuod2"]
+
+[resource]
+shader = ExtResource("1_cuod2")

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1pcychrx7gfv"]
+
+[ext_resource type="PackedScene" uid="uid://cxavmm06cjstn" path="res://assets/model/test_cube.glb" id="1_72yn1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_weg1n"]
+sky_top_color = Color(0.188235, 0.454902, 0.741176, 1)
+sky_horizon_color = Color(0.593137, 0.653922, 0.743137, 1)
+ground_bottom_color = Color(0.184314, 0.160784, 0.231373, 1)
+ground_horizon_color = Color(0.593137, 0.653922, 0.743137, 1)
+
+[sub_resource type="Sky" id="Sky_td5i6"]
+sky_material = SubResource("ProceduralSkyMaterial_weg1n")
+
+[sub_resource type="Environment" id="Environment_dhbnf"]
+background_mode = 2
+sky = SubResource("Sky_td5i6")
+tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dhbnf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.257015, 0, 0.966407, 0, 1, 0, -0.966407, 0, -0.257015, 4.54343, -0.551843, -0.183872)
+
+[node name="test_cube" parent="." instance=ExtResource("1_72yn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.31261, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7.33013, 14.3038)
+near = 0.005
+
+[node name="test_cube2" parent="." instance=ExtResource("1_72yn1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)

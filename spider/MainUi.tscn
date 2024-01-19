@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4wfpy4mqqad"]
+
+[ext_resource type="Script" path="res://MainUi.gd" id="1_kk8ot"]
+[ext_resource type="Script" path="res://SpiderPathLayer.gd" id="3_2f01v"]
+[ext_resource type="Script" path="res://Hud.gd" id="3_bfr4h"]
+[ext_resource type="Script" path="res://spider.gd" id="3_nlt1j"]
+[ext_resource type="Script" path="res://SpiderPath.gd" id="4_f82y3"]
+[ext_resource type="Script" path="res://SetRandomColorTimer.gd" id="6_3jhdl"]
+
+[sub_resource type="SystemFont" id="SystemFont_xcq8n"]
+font_names = PackedStringArray("Source Code Pro")
+font_weight = 999
+
+[node name="MainUi" type="Node2D"]
+z_index = 1000
+script = ExtResource("1_kk8ot")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+modulate = Color(1, 0.168627, 1, 1)
+self_modulate = Color(1, 0.141176, 1, 1)
+show_behind_parent = true
+light_mask = 524288
+visibility_layer = 524288
+offset_right = 24.0
+offset_bottom = 39.0
+
+[node name="Hud" type="Label" parent="VBoxContainer"]
+show_behind_parent = true
+light_mask = 524288
+visibility_layer = 524288
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+theme_override_fonts/font = SubResource("SystemFont_xcq8n")
+theme_override_font_sizes/font_size = 30
+script = ExtResource("3_bfr4h")
+
+[node name="SpiderLayer" type="Node2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+script = ExtResource("3_nlt1j")
+
+[node name="SpiderPathLayer" type="SubViewport" parent="."]
+disable_3d = true
+render_target_clear_mode = 1
+script = ExtResource("3_2f01v")
+
+[node name="SpiderPath" type="Node2D" parent="SpiderPathLayer"]
+script = ExtResource("4_f82y3")
+
+[node name="SetRandomColorTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 30.0
+script = ExtResource("6_3jhdl")
+
+[connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
+[connection signal="update_your_size" from="." to="SpiderLayer" method="_on_main_ui_update_your_size"]
+[connection signal="update_your_size" from="." to="SpiderPathLayer" method="_on_main_ui_update_your_size"]
+[connection signal="draw_spider_path" from="SpiderLayer" to="SpiderPathLayer/SpiderPath" method="_on_spider_layer_draw_spider_path"]
+[connection signal="update_fps" from="SpiderLayer" to="VBoxContainer/Hud" method="_on_spider_layer_update_fps"]
+[connection signal="timeout" from="SetRandomColorTimer" to="SpiderLayer" method="_on_set_random_color_timer_timeout"]
